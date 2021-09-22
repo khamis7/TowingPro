@@ -1,12 +1,15 @@
-package com.example.towingpro;
+ package com.example.towingpro;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -16,68 +19,120 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 public class BackgroundTask extends AsyncTask<String,Void,String> {
-    Context ctx;
+    Context context;
+    AlertDialog alertDialog;
     BackgroundTask(Context ctx)
     {
 
-        this.ctx=ctx;
+        context=ctx;
     }
-    @Override
-    protected void onPreExecute()
-    {
-        super.onPreExecute();
-    }
+
 
     @Override
     protected String doInBackground(String... params) {
-        String reg_url = "http://10.0.2.2/webapp/register.php";
-        String log_url = "http://10.0.2.2/webapp/login.php";
-        String method = params[0];
-        if (method.equals("register"))
+        String type = params[0];
+        String login_url = "http://10.183.27.101/webapp/login.php";
+        String register_url = "http://10.183.27.101/webapp/register.php";
+        if (type.equals("login"))
         {
-            String first_name = params[2];
-            String last_name = params[3];
-            String email = params[4];
-            String date = params[5];
-            String password = params[6];
-            //String cpassword = params[6];
+
             try {
-                URL url = new URL(reg_url);
+                String user_name = params [1];
+                String pass_word = params [2];
+                URL url = new URL(login_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
-                OutputStream os = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
-    String data = URLEncoder.encode("first_name","UTF-8") +"="+URLEncoder.encode(first_name,"UTF-8")+"&"+
-                URLEncoder.encode("last_name","UTF-8") +"="+URLEncoder.encode(last_name,"UTF-8")+"&"+
-                URLEncoder.encode("email","UTF-8") +"="+URLEncoder.encode(email,"UTF-8")+"&"+
-                URLEncoder.encode("date","UTF-8") +"="+URLEncoder.encode(date,"UTF-8")+"&"+
-                URLEncoder.encode("password","UTF-8") +"="+URLEncoder.encode(password,"UTF-8");
-                //URLEncoder.encode("cpassword","UTF-8") +"="+URLEncoder.encode(cpassword,"UTF-8");
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+                String data = URLEncoder.encode("user_name","UTF-8")+"="+URLEncoder.encode(user_name,"UTF-8")+"&"
+                        +URLEncoder.encode("pass_word","UTF-8")+"="+URLEncoder.encode(pass_word,"UTF-8");
+
                 bufferedWriter.write(data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
-                os.close();
-                InputStream IS = httpURLConnection.getInputStream();
-                IS.close();
-                return "Registration Successful";
-            } catch (MalformedURLException e){
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream , "iso-8859-1"));
+                String result = "";
+                String line ="";
+                while((line = bufferedReader.readLine())!= null){
+                    result += line;
+
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+
+            }
+            catch (MalformedURLException e){
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
+        else if(type.equals("register"))
+        {
+            try {
+                String firstname = params [0];
+                String lastname= params [2];
+                String emaill = params [3];
+                String datee = params [4];
+                String pass_word = params [5];
+                String cpass_word = params [6];
+                URL url = new URL(register_url );
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+                String data = URLEncoder.encode("firstname","UTF-8") +" = "+URLEncoder.encode(firstname,"UTF-8")+"&"+
+                        URLEncoder.encode("lastname","UTF-8") +" = "+URLEncoder.encode(lastname,"UTF-8")+"&"+
+                        URLEncoder.encode("emaill","UTF-8") +" = "+URLEncoder.encode(emaill,"UTF-8")+"&"+
+                        URLEncoder.encode("datee","UTF-8") +" = "+URLEncoder.encode(datee,"UTF-8")+"&"+
+                        URLEncoder.encode("pass_word","UTF-8") +" = "+URLEncoder.encode(pass_word,"UTF-8")+"&"+
+                        URLEncoder.encode("cpass_word","UTF-8") +" = "+URLEncoder.encode(cpass_word,"UTF-8");
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream , "iso-8859-1"));
+                String result = "";
+                String line ="";
+                while((line = bufferedReader.readLine())!= null){
+                    result += line;
+
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+
+            }
+            catch (MalformedURLException e){
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
         return null;
     }
 
-    @Override
-    protected void onProgressUpdate(Void... values) {
 
-        super.onProgressUpdate(values);
-    }
 
     @Override
-    protected void onPostExecute(String result) {
-        Toast.makeText(ctx,result,Toast.LENGTH_LONG).show();
+    protected void onPreExecute() {
+        alertDialog=new AlertDialog.Builder(context).create();
+        alertDialog.setTitle("login Status");
+
     }
+    
 }

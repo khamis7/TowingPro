@@ -1,4 +1,4 @@
-package com.example.towingpro;
+ package com.example.towingpro;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class LoginForm extends AppCompatActivity {
-   // public Button button;
+    EditText Username, Password;
+    //public Button button;
     //public Button button1;
 
 
@@ -18,8 +19,8 @@ public class LoginForm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_form);
-//        EditText Username = (EditText) findViewById(R.id.editTextTextPersonName);
-//        EditText Password = (EditText) findViewById(R.id.editTextTextPersonName2);
+         Username = (EditText) findViewById(R.id.log_username);
+         Password = (EditText) findViewById(R.id.loginpassword);
 
         //Button button3 = (Button) findViewById(R.id.button3);
         //admin and admin
@@ -55,15 +56,19 @@ public class LoginForm extends AppCompatActivity {
     }
 
 
-    public void custReg(View view)
-    {
-
+    //
+//    {
+//
+//
+//    }
+    public void custLog(View view) {
+        String emaill = Username.getText().toString();
+        String pass_word = Password.getText().toString();
+        String type = "login";
+        BackgroundTask backgroundTask = new BackgroundTask(this);
+        backgroundTask.execute(type, emaill,  pass_word);
+    }
+    public void custReg(View view){
         startActivity(new Intent(this,RegistrationForm.class));
     }
-    public void custLog(View view)
-    {
-
-    }
-
-
 }
