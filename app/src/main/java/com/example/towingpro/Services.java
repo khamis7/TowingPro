@@ -15,7 +15,7 @@ public class Services extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services);
-        button = (Button) findViewById(R.id.button7);
+        button = (Button) findViewById(R.id.cancel);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
