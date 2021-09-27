@@ -54,33 +54,30 @@ import com.vishnusivadas.advanced_httpurlconnection.PutData;
                 if(!email.equals("") && !password.equals("")) {
                     //progressBar.setVisibility(View.VISIBLE);
                     Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            String[] field = new String[2];
-                            field[0] = "email";
-                            field[1] = "password";
-                            String[] data = new String[2];
-                            data[0] = email;
-                            data[1] = password;
-                            PutData putData = new PutData("http://192.168.43.127/LoginRegister/login.php", "POST", field, data);
-                            if (putData.startPut()) {
-                                if (putData.onComplete()) {
-                                    //progressBar.setVisibility(View.GONE);
-                                    String result = putData.getResult();
-                                    Intent intent = new Intent(getApplicationContext(),Services.class);
-                                    startActivity(intent);
-//                                    if (result.equals("Login Success")){
-//                                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
-//                                        Intent intent = new Intent(getApplicationContext(), Services.class);
-//                                        startActivity(intent);
-//                                        finish();
-//
-//                                    }
-//                                    else {
-//                                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
-//                                    }
-                                }
+                    handler.post(() -> {
+                        String[] field = new String[2];
+                        field[0] = "email";
+                        field[1] = "password";
+                        String[] data = new String[2];
+                        data[0] = email;
+                        data[1] = password;
+                        PutData putData = new PutData("http://192.168.43.127/LoginRegister/login.php", "POST", field, data);
+                        if (putData.startPut()) {
+                            if (putData.onComplete()) {
+                                //progressBar.setVisibility(View.GONE);
+                                String result = putData.getResult();
+                                Intent intent = new Intent(getApplicationContext(),Services.class);
+                                startActivity(intent);
+                                    if (result.equals("Login Success")){
+                                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
+                                        Intent intent1 = new Intent(getApplicationContext(), Services.class);
+                                        startActivity(intent1);
+                                        finish();
+
+                                    }
+                                    else {
+                                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
+                                    }
                             }
                         }
                     });
@@ -91,8 +88,8 @@ import com.vishnusivadas.advanced_httpurlconnection.PutData;
             }
         });
 
-        //Button button3 = (Button) findViewById(R.id.button3);
-        //admin and admin
+//        Button button3 = (Button) findViewById(R.id.button3);
+//        admin and admin
 
 
 //        button3.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +111,7 @@ import com.vishnusivadas.advanced_httpurlconnection.PutData;
 //        });
 
 //        button1 = (Button) findViewById(R.id.button4);
-//
+
 //        button1.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -122,16 +119,16 @@ import com.vishnusivadas.advanced_httpurlconnection.PutData;
 //                startActivity(intent);
 //            }
 //        });
-
-
-        //
+//
+//
+//
 //    {
 //
 //
 //    }
-
+//
 //        button1 = (Button) findViewById(R.id.button4);
-
+//
 
     }
 }
