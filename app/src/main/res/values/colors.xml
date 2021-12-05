@@ -7,4 +7,34 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="rippleEffectColor">#000</color>
+    <color name="btnSignIn">#4a86ff</color>
+    <color name="btnLogIn">#fff</color>
+
+    <color name="colorPrimary">#E0E0E0</color>
+    <color name="colorPrimaryDark">#FBB8AC</color>
+    <color name="colorAccent">#FEDBD0</color>
+    <color name="textColorPrimary">#442C2E</color>
+    <color name="toolbarIconColor">@color/textColorPrimary</color>
+    <color name="loginPageBackgroundColor">#FFFFFF</color>
+    <color name="productGridBackgroundColor">#FFFBFA</color>
+    <color name="textInputOutlineColor">#FBB8AC</color>
+
+    <color name="blueDark">#26155E</color>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="grey_text">#A19BBC</color>
+    <color name="grey_line">#ECECEC</color>
+    <color name="largeText">#707070</color>
+    <color name="grey_medium">#707070</color>
+    <color name="grey_dark">#695E8E</color>
+
+    <color name="golden">#E9BF32</color>
+
+    <color name="grey_background">#F6F5FB</color>
+    <color name="light_grey">#F2F1FB</color>
+    <color name="green">#36D982</color>
+    <color name="red">#E62F85</color>
+    <color name="blue">#457BF9</color>
 </resources>
